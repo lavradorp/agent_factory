@@ -8,7 +8,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.prompt import IntPrompt
 
-from models.llm_config_model import LLMConfigModel
+from .models.llm_config_model import LLMConfigModel
 
 
 load_dotenv()
@@ -151,4 +151,4 @@ class LLMConfig:
                     model_name=embedding_model
                 )
             
-        return llm, embeddings 
+        return llm, embeddings

@@ -3,6 +3,6 @@ llm:
   model: "llama3.1:8b"
   temperature: 0.1
   type: "local"
-  embedding_model: "mxbai-embed-large"
+  embedding_model: "nomic-embed-text"
   base_url: "http://localhost:11434"
   api_key: null
