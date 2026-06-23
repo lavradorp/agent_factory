@@ -1,47 +1,37 @@
 import argparse
-import os
 from pathlib import Path
-import sys
 
-from src.ingestion.ingestion import DataIngestion
-from src.llm_config import LLMConfig
+from src.adapters.cli.agent_selector import AgentSelectorCLI
+from src.adapters.loaders.yaml_loader import YAMLLoader
+
+from src.domain.models.agent_model import AgentModel
+
+from src.application.services.ingestion_service import IngestionService
+from src.application.facade.agent_facade import AgentFacade
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Financial Compliance Agent Workflow CLI")
     parser.add_argument('--ingest', action='store_true', help='Ingest new documents without resetting')
     parser.add_argument('--reset', action='store_true', help='Reset the database and re-ingest all')
+    parser.add_argument('--config', type=str, default=None, help='Path to YAML config')
     args = parser.parse_args()
-    
-    llm_config = LLMConfig()
-    llm, embeddings = llm_config.initialize()
 
-    if not llm or not embeddings:
-        print("\nSetup cancelled or failed. Exiting...")
-        sys.exit(1)
+    selector = AgentSelectorCLI()
+    yaml_path = selector.select_model_cli()
+        
+    config = YAMLLoader.load(yaml_path)
 
-    data_path = Path('./data')
-    db_path = Path('./chroma_db')
-    collection_name = "fin_comp"
+    config_model = AgentModel(**config)
 
-    if args.reset and db_path.exists():
-        import shutil
-        print("Resetting database...\n")
-        shutil.rmtree(db_path)
+    IngestionService.populate_vector_store(
+        config_model=config_model,
+        force_reset=args.reset,
+        force_ingest=(args.ingest or args.reset)
+    )
 
-    db_exists = db_path.exists()
+    agent = AgentFacade.build_from_yaml(config_model)
+    print(f"🦅 Agent armed and ready using model '{config_model.llm.model}'.")
 
-    if db_exists:
-        db_exists = any(db_path.iterdir())
 
-    if args.ingest or args.reset or not db_exists:
-        print("Vector database not found or empty. Starting ingestion pipeline...")
-        data_ingestion = DataIngestion(
-            embeddings=embeddings, 
-            data_path=data_path,
-            db_path=db_path,
-            collection_name=collection_name
-        )
-        data_ingestion.create_vectorstore()
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

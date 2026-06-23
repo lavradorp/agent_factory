@@ -1,0 +1,43 @@
+# ==============================================================================
+# Agent Blueprint Configuration Template[cite: 3]
+# Use this template to instantiate a new agent within the hub factory.
+# ==============================================================================
+
+llm:
+  provider:           # Options: "openai", "ollama", "google", "anthropic", "mistral"
+  model:              # Model name (e.g., "gpt-4o", "llama3.1:8b")
+  temperature:        # Focus/Creativity: 0.0 to 1.0 (Default: 0.0)
+  environment:        # Model location: "local" or "cloud"
+  max_tokens:         # Optional: Maximum token limit for the response payload
+  base_url:           # Optional: API endpoint
+
+embeddings:
+  provider:           # Options: "openai", "ollama", "google", "hugging_face", "mistral", "nomic" 
+  model:              # Model name used to vectorize chunks (e.g., nomic-embed-text:latest)
+  environment:        # Model location: "local" or "cloud"
+
+vector_store:
+  engine:            # Options: "chroma", "qdrant", "pgvector"
+  environment:       # Database location: "local" or "cloud"
+  connection_path:   # Physical directory or connection string/URL (e.g. "./vector_store/chroma")
+  collection_name:   # Partition/Collection inside the database (e.g. "agent_collection_name")
+  batch_size:        # Number of documents pushed to the DB per ingestion cycle (Default: 100)
+
+retriever:
+  search_type:       # Options: "similarity", "similarity_score_threshold", "mmr"
+  top_k:             # Number of source documents to retrieve per query (Default: 3)
+  score_threshold:   # Cutoff threshold (only used if search_type is score-based) (Default: 0.75)
+  tool_name:         # Unique identifier name for the LangGraph/LLM tool mapping (e.g. "agent_search_tool")
+  description:       # Detailed description telling the LLM when and why it must use this retrieval tool
+
+data_informations:
+  data_storage:      # Options: "local"
+  data_path:         # Directory containing the raw operational source files (e.g. "./data)
+  data_loaders:      # Loader parser strategy to use - Options: "pdf"
+  metadata_storage:  # Metadata database/file reference location - Options: "local"
+  metadata_path:     # Path to the structural metadata mapping file
+
+data_splitters:
+  splitter:          # Splitter engine class to instantiate - Options: "recursive_character"
+  chunk_size:        # Max character size per isolated vector chunk (Default: 100)
+  chunk_overlap:     # Character context overlap token buffer between chunks (Default: 0)

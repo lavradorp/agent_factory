@@ -1,0 +1,28 @@
+# ==============================================================================
+# Agent Document Metadata Template
+# Use this template to catalog and map documents used during the RAG pipeline.
+# Helps the system track file origins and automatically generate query contexts.
+# ==============================================================================
+
+documents:
+  - name: "example_document_filename_without_extension" # Exact name of the file in the data folder
+    institution: "AUTHOR_OR_ENTITY" # Creator/Source entity
+    categories:
+      specific_category_identifier_slug: # Unique identifier for the document's knowledge domain
+        keywords: 
+          - "mandatory keyword 1" # Terms that trigger metadata alignment
+          - "relevant phrase example" # Key concepts found inside this specific file section
+          - "acronym" # Abbreviations used for automated lookup filters
+          
+      another_category_slug: # A single document can map into multiple context categories
+        keywords:
+          - "context keyword A"
+          - "context keyword B"
+
+  - name: "another_file_name" # Adding a second file to the registry
+    institution: "COMPANY_DEPT"
+    categories:
+      general_compliance:
+        keywords:
+          - "audit trail"
+          - "regulatory compliance"
