@@ -27,7 +27,7 @@ class GoogleLLMStrategy(LLMStrategy):
         return ChatGoogleGenerativeAI
     
 
-@llm_registry.register(ProviderType.MISTRAL_AI)
+@llm_registry.register(ProviderType.MISTRAL)
 class MistralAILLMStrategy(LLMStrategy):
     def _get_callable(self):
         from langchain_mistralai import ChatMistralAI

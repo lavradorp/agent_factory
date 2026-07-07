@@ -8,8 +8,8 @@ class RetrieverModel(BaseModel):
     search_type: SearchType
     top_k: int = Field(default=3, ge=1)
     score_threshold: Optional[float] = Field(default=0.75, ge=0.0, le=1.0)
-    tool_name: str
-    description: str
+    # tool_name: Optional[str]
+    # description: Optional[str]
 
     @model_validator(mode="after")
     def validate_retriever_logic(self):

@@ -178,6 +178,7 @@ pyrightconfig.json
 .vscode/
 teste.py
 /vector_store/
+/checkpoints/
 /data/
 /metadata/
 

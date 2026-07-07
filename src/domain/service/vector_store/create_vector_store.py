@@ -1,12 +1,10 @@
 from src.domain.factories.components.vector_store.registry import vector_store_registry
 from src.domain.factories.components.vector_store.engines import EnginesTypes
 from src.domain.service.vector_store.vector_store_strategy import VectorStoreStrategy
-from src.decorators.error_handling import error_handling
 
 
 @vector_store_registry.register(EnginesTypes.CHROMA)
 class ChromaVectorStoreStrategy(VectorStoreStrategy):
-    @error_handling()
     def create(self, embeddings, **kwargs):
         from langchain_chroma import Chroma
 
@@ -26,7 +24,6 @@ class ChromaVectorStoreStrategy(VectorStoreStrategy):
 
 @vector_store_registry.register(EnginesTypes.PGVECTOR)
 class PGVectorStoreStrategy(VectorStoreStrategy):
-    @error_handling()
     def create(self, embeddings, **kwargs):
         from langchain_postgres import PGVector
 
@@ -45,7 +42,6 @@ class PGVectorStoreStrategy(VectorStoreStrategy):
 
 @vector_store_registry.register(EnginesTypes.QDRANT)   
 class QdrantVectorStoreStrategy(VectorStoreStrategy):
-    @error_handling()
     def create(self, embeddings, **kwargs):
         from langchain_qdrant import QdrantVectorStore
         from qdrant_client import QdrantClient

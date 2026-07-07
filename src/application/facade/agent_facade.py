@@ -1,7 +1,7 @@
 from src.adapters.loaders.yaml_loader import YAMLLoader
 
-from src.application.builder.agent_builder import AgentBuilder
-from src.application.builder.agent_product import AgentProduct
+from src.application.builder.agent.agent_builder import AgentBuilder
+from src.application.builder.agent.agent_product import AgentProduct
 
 from src.domain.models.agent_model import AgentModel
 
@@ -20,5 +20,9 @@ class AgentFacade:
 
             builder.set_retriever()
 
+            builder.set_checkpointer()
+
 
         return builder.agent
+    
+    

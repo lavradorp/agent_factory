@@ -4,7 +4,6 @@ from src.decorators.error_handling import error_handling
 
 class LLMStrategy(ABC):
     @error_handling()
-    # def initialize(self, llm: str, temperature: float, max_tokens=None, base_url=None):
     def initialize(self, **kwargs):
         mandatory_fields = ("model", "temperature")
 

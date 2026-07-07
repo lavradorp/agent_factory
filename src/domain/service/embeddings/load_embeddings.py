@@ -26,7 +26,7 @@ class HuggingFaceEmbeddingsStrategy(EmbeddingsStrategy):
         return HuggingFaceEmbeddings
 
 
-@embeddings_registry.register(ProviderType.MISTRAL_AI)
+@embeddings_registry.register(ProviderType.MISTRAL)
 class MistralAIEmbeddingsStrategy(EmbeddingsStrategy):
     def _get_callable(self):
         from langchain_mistralai import MistralAIEmbeddings

@@ -1,5 +1,5 @@
-from src.application.builder.agent_product import AgentProduct
-from src.application.builder.base import Builder
+from src.application.builder.agent.agent_product import AgentProduct
+from src.application.builder.agent.base import Builder
 
 from src.domain.models.agent_model import AgentModel
 
@@ -10,6 +10,7 @@ from src.domain.factories.components.retriever.factory import StrategyRetrieverF
 from src.domain.factories.components.data.informations.loaders.factory import StrategyDataLoaderFactory
 from src.domain.factories.components.data.informations.storage.factory import StrategyDataStorageFactory
 from src.domain.factories.components.data.splitters.factory import StrategySplitDataFactory
+from src.domain.factories.components.checkpointer.factory import StrategyCheckpointersFactory
 
 
 class AgentBuilder(Builder):
@@ -35,12 +36,12 @@ class AgentBuilder(Builder):
         llm_dict = self.config.llm.model_dump(exclude_none=True)
         provider = llm_dict.pop('provider')
 
-        llm_factory = StrategyLLMsFactory.execute(
+        strategy = StrategyLLMsFactory.execute(
             instance_type=provider,
             
         )
 
-        self._agent.llm = llm_factory.initialize(**llm_dict)
+        self._agent.llm = strategy.initialize(**llm_dict)
 
     def set_embeddings_model(self) -> None:
         if not self.config.embeddings:
@@ -49,11 +50,11 @@ class AgentBuilder(Builder):
         embeddings_dict = self.config.embeddings.model_dump(exclude_none=True)
         provider = embeddings_dict.pop('provider')
 
-        embeddings_factory = StrategyEmbeddingsFactory.execute(
+        strategy = StrategyEmbeddingsFactory.execute(
             instance_type=provider,
         )
 
-        self._agent.embeddings = embeddings_factory.initialize(**embeddings_dict)
+        self._agent.embeddings = strategy.initialize(**embeddings_dict)
 
     def set_vector_store(self) -> None:
         if not self.config.vector_store:
@@ -67,11 +68,11 @@ class AgentBuilder(Builder):
         vector_store_dict = self.config.vector_store.model_dump(exclude_none=True)
         engine = vector_store_dict.pop('engine')
 
-        vector_store_factory = StrategyVectorStoreFactory.execute(
+        strategy = StrategyVectorStoreFactory.execute(
             instance_type=engine,
         )
 
-        self._agent.vector_store = vector_store_factory.create(
+        self._agent.vector_store = strategy.create(
             embeddings=self._agent.embeddings,
             **vector_store_dict
             )
@@ -88,11 +89,11 @@ class AgentBuilder(Builder):
         retriever_dict = self.config.retriever.model_dump(exclude_none=True)
         search_type = retriever_dict.get('search_type')
 
-        retriever_factory = StrategyRetrieverFactory.execute(
+        strategy = StrategyRetrieverFactory.execute(
             instance_type=search_type
         )
 
-        self._agent.retriever = retriever_factory.create(
+        self._agent.retriever = strategy.create(
             vectorstore=self._agent.vector_store,
             **retriever_dict
         )
@@ -133,5 +134,11 @@ class AgentBuilder(Builder):
                 chunk_size=data_splitter.chunk_size,
                 chunk_overlap=data_splitter.chunk_overlap
             )
-            
     
+    def set_checkpointer(self) -> None:
+        if not self.config.checkpointer:
+            return
+        
+        checkpointer_dict = self.config.checkpointer.model_dump(exclude_none=True)
+
+        self._agent.checkpointer = checkpointer_dict

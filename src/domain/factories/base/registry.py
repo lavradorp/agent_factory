@@ -20,3 +20,7 @@ class BaseRegistry:
                 f"Provider '{key}' is not supported in the '{self.registry_name}' registry."
             )
         return self._registry[key]
+    
+    @property
+    def registries(self):
+        return self._registry

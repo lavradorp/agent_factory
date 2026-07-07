@@ -53,6 +53,7 @@ class PDFLoaderStrategy(DataLoaderStrategy):
             for page in pages:                        
                 page.metadata["file_name"] = pdf_file.name
                 page.metadata["institution"] = institution
+                page.metadata["source"] = doc_name
                 page.page_content = f"Content issued by {institution}.\n" + page.page_content
 
                 found_categories = []

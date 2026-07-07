@@ -5,3 +5,4 @@ class AgentProduct:
         self.vector_store = None
         self.retriever = None
         self.data = []
+        self.checkpointer = None
