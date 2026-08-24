@@ -1,16 +1,21 @@
 from src.application.builder.agent.agent_product import AgentProduct
 from src.application.builder.agent.base import Builder
-
-from src.domain.models.agent_model import AgentModel
-
-from src.domain.factories.components.llm.factory import StrategyLLMsFactory
+from src.domain.factories.components.data.informations.loaders.factory import (
+    StrategyDataLoaderFactory,
+)
+from src.domain.factories.components.data.informations.storage.factory import (
+    StrategyDataStorageFactory,
+)
+from src.domain.factories.components.data.splitters.factory import (
+    StrategySplitDataFactory,
+)
 from src.domain.factories.components.embeddings.factory import StrategyEmbeddingsFactory
-from src.domain.factories.components.vector_store.factory import StrategyVectorStoreFactory
+from src.domain.factories.components.llm.factory import StrategyLLMsFactory
 from src.domain.factories.components.retriever.factory import StrategyRetrieverFactory
-from src.domain.factories.components.data.informations.loaders.factory import StrategyDataLoaderFactory
-from src.domain.factories.components.data.informations.storage.factory import StrategyDataStorageFactory
-from src.domain.factories.components.data.splitters.factory import StrategySplitDataFactory
-from src.domain.factories.components.checkpointer.factory import StrategyCheckpointersFactory
+from src.domain.factories.components.vector_store.factory import (
+    StrategyVectorStoreFactory,
+)
+from src.domain.models.agent_model import AgentModel
 
 
 class AgentBuilder(Builder):

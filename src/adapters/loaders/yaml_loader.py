@@ -1,5 +1,6 @@
 import yaml
 
+
 class YAMLLoader:
     @staticmethod
     def load(file_path: str):

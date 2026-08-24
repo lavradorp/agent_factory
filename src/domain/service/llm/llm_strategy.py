@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+
 from src.decorators.error_handling import error_handling
 
 

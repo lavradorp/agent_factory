@@ -1,6 +1,7 @@
-from src.domain.service.embeddings.embeddings_strategy import EmbeddingsStrategy
 from src.domain.factories.components.embeddings.providers import ProviderType
 from src.domain.factories.components.embeddings.registry import embeddings_registry
+from src.domain.service.embeddings.embeddings_strategy import EmbeddingsStrategy
+
 
 @embeddings_registry.register(ProviderType.GENERIC)
 class LangChainEmbeddingsStrategy(EmbeddingsStrategy):

@@ -1,8 +1,12 @@
 # src/application/services/ingestion_service.py
-from src.domain.models.agent_model import AgentModel
-from src.application.builder.agent.agent_builder import AgentBuilder
-from src.domain.factories.components.vector_store.factory import StrategyVectorStoreFactory
 from tqdm import tqdm
+
+from src.application.builder.agent.agent_builder import AgentBuilder
+from src.domain.factories.components.vector_store.factory import (
+    StrategyVectorStoreFactory,
+)
+from src.domain.models.agent_model import AgentModel
+
 
 class IngestionService:
     @staticmethod

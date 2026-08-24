@@ -1,8 +1,11 @@
 import uuid
 
-from src.domain.factories.components.checkpointer.factory import StrategyCheckpointersFactory
-from src.application.builder.graph.graph_builder import GraphBuilder
 from src.application.builder.agent.agent_product import AgentProduct
+from src.application.builder.graph.graph_builder import GraphBuilder
+from src.domain.factories.components.checkpointer.factory import (
+    StrategyCheckpointersFactory,
+)
+
 
 class GraphFacade:
     

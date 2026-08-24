@@ -53,7 +53,7 @@ def take_action(state: AgentState, registred_tools: dict) -> dict:
             results.append(ToolMessage(tool_call_id=t['id'], name=tool_name, content=str_result))
             
         except Exception as e:
-            error_msg = f"Error executing tool: {str(e)}"
+            error_msg = f"Error executing tool: {e!s}"
             results.append(ToolMessage(tool_call_id=t['id'], name=tool_name, content=error_msg))
 
     return {'messages': results}

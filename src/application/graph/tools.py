@@ -1,12 +1,9 @@
 import inspect
 
-from langchain_core.tools import tool, BaseTool
+from langchain_core.tools import BaseTool, tool
 
-from src.domain.models.retriever_input_model import RetrieverInputModel
 from src.application.builder.agent.agent_product import AgentProduct
-
 from src.domain.factories.base.registry import BaseRegistry
-
 
 tool_register = BaseRegistry(registry_name="Tool Register")
 

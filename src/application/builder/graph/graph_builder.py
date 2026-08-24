@@ -1,8 +1,7 @@
-from langgraph.graph import StateGraph, END
+from langgraph.graph import END, StateGraph
 
 from src.application.builder.agent.agent_product import AgentProduct
 from src.application.builder.graph.base import Builder
-
 from src.application.graph.nodes import call_llm, exists_action, take_action
 from src.application.graph.state import AgentState
 from src.application.graph.tools import prepare_agent_tools_list

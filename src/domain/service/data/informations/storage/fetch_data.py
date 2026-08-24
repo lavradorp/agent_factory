@@ -1,9 +1,15 @@
 from contextlib import contextmanager
 from pathlib import Path
 
-from src.domain.service.data.informations.storage.data_storage_strategy import DataStorageStrategy
-from src.domain.factories.components.data.informations.storage.storage import StorageType
-from src.domain.factories.components.data.informations.storage.registry import data_storage_registry
+from src.domain.factories.components.data.informations.storage.registry import (
+    data_storage_registry,
+)
+from src.domain.factories.components.data.informations.storage.storage import (
+    StorageType,
+)
+from src.domain.service.data.informations.storage.data_storage_strategy import (
+    DataStorageStrategy,
+)
 
 
 @data_storage_registry.register(StorageType.LOCAL)

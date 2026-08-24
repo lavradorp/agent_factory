@@ -1,16 +1,20 @@
-from typing import Optional
+
 from pydantic import BaseModel, Field, model_validator
 
-from src.domain.factories.components.data.informations.storage.storage import StorageType
-from src.domain.factories.components.data.informations.loaders.loaders import LoadersType
+from src.domain.factories.components.data.informations.loaders.loaders import (
+    LoadersType,
+)
+from src.domain.factories.components.data.informations.storage.storage import (
+    StorageType,
+)
 
 
 class DataInformationsModel(BaseModel):
     data_storage: StorageType
     data_path: str
     data_loaders: LoadersType
-    metadata_storage: Optional[StorageType] = Field(default=None)
-    metadata_path: Optional[str] = Field(default=None)
+    metadata_storage: StorageType | None = Field(default=None)
+    metadata_path: str | None = Field(default=None)
 
     @model_validator(mode="after")
     def validate_meatdata(self):

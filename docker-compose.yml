@@ -1,0 +1,22 @@
+# Local Postgres for the LangGraph checkpointer (`checkpointer.saver: "postgres"`
+# in an agent YAML). These credentials are throwaway dev defaults, safe to
+# commit — never used outside a developer's own machine.
+#
+# Usage:
+#   docker compose up -d
+#   connection_path: "postgresql://fin_agent:fin_agent_dev_password@localhost:5432/fin_agent"
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: checkpointer
+      POSTGRES_PASSWORD: checkpointer_dev_password
+      POSTGRES_DB: checkpointer
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

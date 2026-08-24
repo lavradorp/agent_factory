@@ -1,5 +1,5 @@
+
 from pydantic import BaseModel, Field, model_validator
-from typing import Optional
 
 from src.domain.factories.components.retriever.search_type import SearchType
 
@@ -7,7 +7,7 @@ from src.domain.factories.components.retriever.search_type import SearchType
 class RetrieverModel(BaseModel):
     search_type: SearchType
     top_k: int = Field(default=3, ge=1)
-    score_threshold: Optional[float] = Field(default=0.75, ge=0.0, le=1.0)
+    score_threshold: float | None = Field(default=0.75, ge=0.0, le=1.0)
     # tool_name: Optional[str]
     # description: Optional[str]
 
