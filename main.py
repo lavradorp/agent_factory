@@ -1,16 +1,18 @@
 import argparse
 
+from dotenv import load_dotenv
+
 from src.adapters.cli.agent_selector import AgentSelectorCLI
 from src.adapters.cli.chat import ChatCLI
 from src.adapters.loaders.yaml_loader import YAMLLoader
-
+from src.application.facade.agent_facade import AgentFacade
+from src.application.services.ingestion_service import IngestionService
 from src.domain.models.agent_model import AgentModel
 
-from src.application.services.ingestion_service import IngestionService
-from src.application.facade.agent_facade import AgentFacade
-from src.application.facade.graph_facade import GraphFacade
 
 def main():
+    load_dotenv()
+
     parser = argparse.ArgumentParser(description="Agent Factory Workflow CLI")
     parser.add_argument('--ingest', action='store_true', help='Ingest new documents without resetting')
     parser.add_argument('--reset', action='store_true', help='Reset the database and re-ingest all')

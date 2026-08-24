@@ -1,6 +1,6 @@
-from src.domain.service.llm.llm_strategy import LLMStrategy
 from src.domain.factories.components.llm.providers import ProviderType
 from src.domain.factories.components.llm.registry import llm_registry
+from src.domain.service.llm.llm_strategy import LLMStrategy
 
 
 @llm_registry.register(ProviderType.GENERIC)

@@ -1,5 +1,6 @@
 from functools import wraps
 
+
 def error_handling():
     def decorator(func):
         @wraps(func)
@@ -30,7 +31,7 @@ def error_handling():
                 raise e
             
             except Exception as e:
-                raise RuntimeError(f"\nFailure on '{strategy_name}': {str(e)}") from e
+                raise RuntimeError(f"\nFailure on '{strategy_name}': {e!s}") from e
             
         return wrapper
     

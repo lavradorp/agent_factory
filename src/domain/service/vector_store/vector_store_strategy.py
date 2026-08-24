@@ -1,6 +1,6 @@
+import shutil
 from abc import ABC, abstractmethod
 from pathlib import Path
-import shutil
 
 
 class VectorStoreStrategy(ABC):

@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field, model_validator
 
 from src.domain.factories.components.checkpointer.savers import SaverType
 
+
 class CheckpointerModel(BaseModel):
     saver: SaverType
     environment: str = Field(pattern="^(local|cloud)$")

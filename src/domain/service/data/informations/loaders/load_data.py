@@ -1,10 +1,17 @@
 import re
 from pathlib import Path
+
 import polars as pl
 
-from src.domain.service.data.informations.loaders.data_loader_strategy import DataLoaderStrategy
-from src.domain.factories.components.data.informations.loaders.loaders import LoadersType
-from src.domain.factories.components.data.informations.loaders.registry import data_loader_registry
+from src.domain.factories.components.data.informations.loaders.loaders import (
+    LoadersType,
+)
+from src.domain.factories.components.data.informations.loaders.registry import (
+    data_loader_registry,
+)
+from src.domain.service.data.informations.loaders.data_loader_strategy import (
+    DataLoaderStrategy,
+)
 
 
 @data_loader_registry.register(LoadersType.PDF)

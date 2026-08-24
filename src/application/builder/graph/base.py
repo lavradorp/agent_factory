@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-from langgraph.graph import StateGraph
-
 from src.application.builder.agent.agent_product import AgentProduct
 
 

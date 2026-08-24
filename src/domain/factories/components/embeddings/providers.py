@@ -1,5 +1,6 @@
 from enum import StrEnum, auto
 
+
 class ProviderType(StrEnum):
     GENERIC = auto()
     GOOGLE = auto()

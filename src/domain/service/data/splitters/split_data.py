@@ -1,6 +1,11 @@
-from src.domain.service.data.splitters.data_splitters_strategy import DataSplitterStrategy
+from src.domain.factories.components.data.splitters.registry import (
+    data_splitter_registry,
+)
 from src.domain.factories.components.data.splitters.splitter import SplitterType
-from src.domain.factories.components.data.splitters.registry import data_splitter_registry
+from src.domain.service.data.splitters.data_splitters_strategy import (
+    DataSplitterStrategy,
+)
+
 
 @data_splitter_registry.register(SplitterType.RECURSIVE_CHARACTER)
 class RecursiveCharacterSplitterStrategy(DataSplitterStrategy):

@@ -17,11 +17,14 @@ embeddings:
   environment:        # Model location: "local" or "cloud"
 
 vector_store:
-  engine:            # Options: "chroma", "qdrant", "pgvector"
+  engine:            # Options: "chroma", "qdrant", "pgvector", "pinecone"
   environment:       # Database location: "local" or "cloud"
-  connection_path:   # Physical directory or connection string/URL (e.g. "./vector_store/chroma")
+  connection_path:   # Physical directory or connection string/URL (e.g. "./vector_store/chroma"). Not required for "pinecone".
   collection_name:   # Partition/Collection inside the database (e.g. "agent_collection_name")
   batch_size:        # Number of documents pushed to the DB per ingestion cycle (Default: 100)
+  # type:            # Only for "qdrant": "memory", "local" or "cloud"
+  # Cloud engines ("qdrant" type=cloud, "pinecone") read their API key from the
+  # environment (PINECONE_API_KEY / QDRANT_API_KEY), never from this file.
 
 retriever:
   search_type:       # Options: "similarity", "similarity_score_threshold", "mmr"
@@ -41,3 +44,8 @@ data_splitters:
   splitter:          # Splitter engine class to instantiate - Options: "recursive_character"
   chunk_size:        # Max character size per isolated vector chunk (Default: 100)
   chunk_overlap:     # Character context overlap token buffer between chunks (Default: 0)
+
+checkpointer:
+  saver:             # Options: "sqlite", "postgres", "in_memory"
+  environment:       # Where the saver itself runs: "local" or "cloud"
+  connection_path:   # File path (sqlite) or full conninfo string (postgres). Not required for "in_memory".

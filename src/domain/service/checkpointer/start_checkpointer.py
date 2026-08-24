@@ -1,9 +1,9 @@
 from contextlib import contextmanager
 from pathlib import Path
 
-from src.domain.service.checkpointer.checkpointer_strategy import CheckpointerStrategy
-from src.domain.factories.components.checkpointer.savers import SaverType
 from src.domain.factories.components.checkpointer.registry import checkpointer_registry
+from src.domain.factories.components.checkpointer.savers import SaverType
+from src.domain.service.checkpointer.checkpointer_strategy import CheckpointerStrategy
 
 
 @checkpointer_registry.register(SaverType.IN_MEMORY)
@@ -21,8 +21,9 @@ class InMemoryCheckpointerStrategy(CheckpointerStrategy):
 class SQLiteCheckpointerStrategy(CheckpointerStrategy):
     @contextmanager
     def start(self, **kwargs):
-        from langgraph.checkpoint.sqlite import SqliteSaver
         import sqlite3
+
+        from langgraph.checkpoint.sqlite import SqliteSaver
 
         connection_path = kwargs["connection_path"]
         
