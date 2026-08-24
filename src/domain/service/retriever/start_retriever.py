@@ -1,3 +1,4 @@
+from src.decorators.error_handling import error_handling
 from src.domain.factories.components.retriever.registry import retriever_registry
 from src.domain.factories.components.retriever.search_type import SearchType
 from src.domain.service.retriever.retriever_strategy import RetrieverStrategy
@@ -9,6 +10,7 @@ from src.domain.service.retriever.retriever_strategy import RetrieverStrategy
     SearchType.MMR
 )
 class StandardRetrieverStrategy(RetrieverStrategy):
+    @error_handling()
     def create(self, vectorstore, **kwargs):
         search_type = kwargs["search_type"]
         

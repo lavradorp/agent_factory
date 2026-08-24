@@ -14,16 +14,17 @@ class GraphBuilder(Builder):
         
         agent_tools_dict = {t.name: t for t in agent_tools}
         
+        llm = agent.llm
         if agent_tools:
-            agent.llm = agent.llm.bind_tools(agent_tools)
-        
+            llm = llm.bind_tools(agent_tools)
+
         graph = StateGraph(AgentState)
 
         graph.add_node(
-            'llm', 
+            'llm',
             lambda state: call_llm(
-                state=state, 
-                llm=agent.llm, 
+                state=state,
+                llm=llm,
                 system_prompt=prompts['system']
             )
         )

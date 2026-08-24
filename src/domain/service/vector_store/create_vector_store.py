@@ -1,3 +1,4 @@
+from src.decorators.error_handling import error_handling
 from src.domain.factories.components.vector_store.registry import vector_store_registry
 from src.domain.factories.components.vector_store.engines import EnginesTypes
 from src.domain.service.vector_store.vector_store_strategy import VectorStoreStrategy
@@ -5,6 +6,7 @@ from src.domain.service.vector_store.vector_store_strategy import VectorStoreStr
 
 @vector_store_registry.register(EnginesTypes.CHROMA)
 class ChromaVectorStoreStrategy(VectorStoreStrategy):
+    @error_handling()
     def create(self, embeddings, **kwargs):
         from langchain_chroma import Chroma
 
@@ -24,6 +26,7 @@ class ChromaVectorStoreStrategy(VectorStoreStrategy):
 
 @vector_store_registry.register(EnginesTypes.PGVECTOR)
 class PGVectorStoreStrategy(VectorStoreStrategy):
+    @error_handling()
     def create(self, embeddings, **kwargs):
         from langchain_postgres import PGVector
 
@@ -42,6 +45,7 @@ class PGVectorStoreStrategy(VectorStoreStrategy):
 
 @vector_store_registry.register(EnginesTypes.QDRANT)   
 class QdrantVectorStoreStrategy(VectorStoreStrategy):
+    @error_handling()
     def create(self, embeddings, **kwargs):
         from langchain_qdrant import QdrantVectorStore
         from qdrant_client import QdrantClient
@@ -56,8 +60,12 @@ class QdrantVectorStoreStrategy(VectorStoreStrategy):
             client = QdrantClient(path=kwargs['connection_path'])
         elif vs_type == 'cloud':
             client = QdrantClient(url=kwargs['connection_path'],
-                                   api_key=kwargs.get('api_key'), 
+                                   api_key=kwargs.get('api_key'),
                                    prefer_grpc=True)
+        else:
+            raise ValueError(
+                f"Invalid Qdrant 'type': '{vs_type}'. Expected 'memory', 'local' or 'cloud'."
+            )
 
         if not client.collection_exists(collection_name=collection_name):
             client.create_collection(

@@ -20,7 +20,7 @@ class AgentFacade:
 
             builder.set_retriever()
 
-            builder.set_checkpointer()
+        builder.set_checkpointer()
 
 
         return builder.agent

@@ -9,3 +9,4 @@ class VectorStoreModel(BaseModel):
     connection_path: str
     collection_name: str
     batch_size: int = Field(default=100)
+    type: str | None = None

@@ -25,10 +25,15 @@ class IngestionService:
         agent = builder.agent
         chunks = agent.data
         vector_store = agent.vector_store
-  
+
         if not chunks:
             print("[Ingestion] No documents found to process.")
             return
+
+        if not vector_store:
+            raise RuntimeError(
+                "Cannot ingest documents: 'vector_store' is not configured for this agent."
+            )
 
         new_chunks = chunks
         if not force_reset:

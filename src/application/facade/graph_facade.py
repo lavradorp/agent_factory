@@ -17,7 +17,7 @@ class GraphFacade:
         builder = GraphBuilder()
         graph = builder.set_pipeline(agent=agent, prompts=prompts)
 
-        config = agent.checkpointer
+        config = dict(agent.checkpointer) if agent.checkpointer else agent.checkpointer
         
         if not session_id:
             session_id = str(uuid.uuid4())

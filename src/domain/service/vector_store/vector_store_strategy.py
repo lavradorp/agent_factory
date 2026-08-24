@@ -2,12 +2,9 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 import shutil
 
-from src.decorators.error_handling import error_handling
-
 
 class VectorStoreStrategy(ABC):
     @abstractmethod
-    @error_handling()
     def create(self, embeddings, **kwargs):
         pass
 

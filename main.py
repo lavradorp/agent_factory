@@ -19,7 +19,10 @@ def main():
 
     selector = AgentSelectorCLI()
     yaml_path = selector.select_model_cli()
-        
+
+    if yaml_path is None:
+        return
+
     config = YAMLLoader.load(yaml_path)
 
     config_model = AgentModel(**config)
