@@ -1,6 +1,6 @@
 # Agent Factory
 
-A portfolio project: a financial RAG chat agent built on [LangGraph](https://github.com/langchain-ai/langgraph), designed around a pluggable **strategy + factory + registry** architecture. Every moving part — LLM, embeddings, vector store, retriever, data ingestion, checkpointer — is swappable via YAML, with no code changes, whether you're running fully local or fully in the cloud.
+A portfolio project: a framework for RAG agent built on [LangGraph](https://github.com/langchain-ai/langgraph), designed around a pluggable **strategy + factory + registry** architecture. Every moving part, such as LLM, embeddings, vector store, retriever, data ingestion, checkpointer, is swappable via YAML, with no code changes, whether you're running fully local or fully in the cloud.
 
 ## Architecture
 
